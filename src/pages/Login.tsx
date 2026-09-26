@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FileText, Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react'
+import defaultLogo from '../assets/logo.webp'
 import { supabase } from '../lib/supabase'
 
 export default function Login() {
@@ -28,10 +29,12 @@ export default function Login() {
       style={{ background: 'linear-gradient(135deg, #EFF6FF 0%, #F0F9FF 100%)' }}>
       <div className="w-full max-w-sm">
         <div className="flex flex-col items-center mb-8">
-          <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-3"
-            style={{ background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)', boxShadow: '0 4px 16px rgba(37,99,235,0.35)' }}>
-            <FileText size={22} className="text-white" />
-          </div>
+          <img
+            src={defaultLogo}
+            alt="logo"
+            className="w-14 h-14 rounded-2xl object-contain mb-3"
+            style={{ boxShadow: '0 4px 16px rgba(37,99,235,0.25)' }}
+          />
           <h1 className="text-xl font-bold text-gray-900">Bienvenido</h1>
           <p className="text-sm text-gray-500 mt-1">Sistema de Cotizaciones</p>
         </div>

@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { LayoutDashboard, Users, FileText, Settings, Menu, X, Receipt, LogOut } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
 import { useEmpresa } from '../contexts/EmpresaContext'
+import defaultLogo from '../assets/logo.webp'
 
 const navItems = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, exact: true },
@@ -25,14 +26,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Logo */}
       <div className="px-5 py-5 flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-3">
-          {empresa?.logo ? (
-            <img src={empresa.logo} alt="logo" className="h-8 w-auto object-contain flex-shrink-0" style={{ maxWidth: 80 }} />
-          ) : (
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
-              style={{ background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)', boxShadow: '0 2px 8px rgba(37,99,235,0.35)' }}>
-              <FileText size={15} className="text-white" />
-            </div>
-          )}
+          <img
+            src={empresa?.logo || defaultLogo}
+            alt="logo"
+            className="h-8 w-auto object-contain flex-shrink-0 rounded-xl"
+            style={{ maxWidth: 80 }}
+          />
           <div>
             <p className="font-bold text-gray-900 text-sm leading-tight">{empresa?.nombre_sistema || 'Cotizaciones'}</p>
             <p className="text-[10px] text-gray-400">{empresa?.subtitulo_sistema || 'Sistema SITI'}</p>
@@ -121,14 +120,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <Menu size={20} />
           </button>
           <div className="flex items-center gap-2">
-            {empresa?.logo ? (
-              <img src={empresa.logo} alt="logo" className="h-6 w-auto object-contain" style={{ maxWidth: 60 }} />
-            ) : (
-              <div className="w-6 h-6 rounded-lg flex items-center justify-center"
-                style={{ background: 'linear-gradient(135deg, #2563EB, #1D4ED8)' }}>
-                <FileText size={12} className="text-white" />
-              </div>
-            )}
+            <img
+              src={empresa?.logo || defaultLogo}
+              alt="logo"
+              className="h-6 w-auto object-contain rounded-lg"
+              style={{ maxWidth: 60 }}
+            />
             <span className="font-bold text-gray-900 text-sm">{empresa?.nombre_sistema || 'Cotizaciones'}</span>
           </div>
         </div>
