@@ -3,7 +3,7 @@ import {
   LogIn, LayoutDashboard, Settings, Users, Receipt, FileDown, FileText,
   HelpCircle, Check, AlertTriangle, PlayCircle,
 } from 'lucide-react'
-import { startTour } from '../lib/tour'
+import { replayTours } from '../lib/tour'
 
 /* ── Helpers de presentación ── */
 
@@ -132,11 +132,11 @@ export default function Ayuda() {
           Aquí se explica para qué sirve cada sección y qué hace cada campo, incluyendo
           qué información aparece en el PDF que se envía al cliente.
         </p>
-        <button onClick={() => startTour()} className="btn-primary mt-4">
-          <PlayCircle size={16} /> Ver tutorial guiado
+        <button onClick={() => replayTours()} className="btn-primary mt-4">
+          <PlayCircle size={16} /> Volver a ver los tutoriales
         </button>
         <p className="text-[12px] text-gray-400 mt-2">
-          Una visita rápida que resalta cada parte de la pantalla y explica para qué sirve.
+          Cada pantalla muestra un mini-tutorial la primera vez que entras. Con este botón vuelven a activarse: se abre el del Dashboard y el resto aparece a medida que entras a cada sección.
         </p>
       </div>
 

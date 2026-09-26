@@ -72,13 +72,13 @@ export default function Clientes() {
           <h1 className="text-2xl font-bold text-gray-900">Clientes</h1>
           <p className="text-sm text-gray-500 mt-0.5">{clientes.length} clientes registrados</p>
         </div>
-        <button onClick={openNew} className="btn-primary">
+        <button onClick={openNew} className="btn-primary" data-tour="cli-nuevo">
           <Plus size={16} /> Nuevo Cliente
         </button>
       </div>
 
       <div className="card overflow-hidden">
-        <div className="px-4 py-3 border-b border-gray-100">
+        <div className="px-4 py-3 border-b border-gray-100" data-tour="cli-buscar">
           <div className="relative">
             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             <input

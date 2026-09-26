@@ -45,14 +45,14 @@ export default function Dashboard() {
           <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
           <p className="text-sm text-gray-500 mt-0.5">Resumen de cotizaciones por mes</p>
         </div>
-        <Link to="/cotizaciones/nueva" className="btn-primary">
+        <Link to="/cotizaciones/nueva" className="btn-primary" data-tour="dash-nueva">
           <Plus size={16} />
           Nueva Cotización
         </Link>
       </div>
 
       {/* Month selector */}
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-3 mb-6" data-tour="dash-mes">
         <button onClick={prevMes}
           className="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
           <ChevronLeft size={16} className="text-gray-500" />
@@ -74,7 +74,7 @@ export default function Dashboard() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8" data-tour="dash-stats">
         <div className="card p-5">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-9 h-9 bg-blue-50 rounded-lg flex items-center justify-center">
@@ -96,7 +96,7 @@ export default function Dashboard() {
       </div>
 
       {/* List */}
-      <div className="card">
+      <div className="card" data-tour="dash-lista">
         <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
           <h2 className="font-semibold text-gray-900">
             Cotizaciones — {MESES[mesIdx]} {anio}

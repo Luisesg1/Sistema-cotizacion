@@ -91,11 +91,11 @@ export default function Historial() {
           <h1 className="text-2xl font-bold text-gray-900">Historial</h1>
           <p className="text-sm text-gray-500 mt-0.5">{cotizaciones.length} cotizaciones en total</p>
         </div>
-        <Link to="/cotizaciones/nueva" className="btn-primary">+ Nueva Cotización</Link>
+        <Link to="/cotizaciones/nueva" className="btn-primary" data-tour="hist-nueva">+ Nueva Cotización</Link>
       </div>
 
       <div className="card">
-        <div className="px-4 py-3 border-b border-gray-100">
+        <div className="px-4 py-3 border-b border-gray-100" data-tour="hist-buscar">
           <div className="relative">
             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             <input className="input pl-9 w-80" placeholder="Buscar por número, cliente o fecha..."

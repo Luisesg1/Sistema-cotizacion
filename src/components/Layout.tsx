@@ -4,7 +4,7 @@ import { LayoutDashboard, Users, FileText, Settings, Menu, X, Receipt, LogOut, H
 import { useAuth } from '../contexts/AuthContext'
 import { useEmpresa } from '../contexts/EmpresaContext'
 import defaultLogo from '../assets/logo.webp'
-import { startTourOnce } from '../lib/tour'
+import { runScreenTourOnce } from '../lib/tour'
 
 const navItems = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, exact: true },
@@ -23,8 +23,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const username = session?.user?.email?.split('@')[0] || 'Usuario'
   const close = () => setOpen(false)
 
-  // Tutorial guiado: se abre solo la primera vez que el usuario entra.
-  useEffect(() => { startTourOnce() }, [])
+  // Tutorial por pantalla: se muestra solo la primera vez que se entra a cada una.
+  useEffect(() => {
+    const p = location.pathname
+    const key =
+      p === '/' ? 'dashboard' :
+      p === '/cotizaciones/nueva' ? 'nuevacot' :
+      p === '/historial' ? 'historial' :
+      p === '/clientes' ? 'clientes' :
+      p === '/configuracion' ? 'configuracion' :
+      null
+    if (key) runScreenTourOnce(key)
+  }, [location.pathname])
 
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
