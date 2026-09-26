@@ -25,26 +25,19 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4"
-      style={{ background: 'linear-gradient(135deg, #EFF6FF 0%, #F0F9FF 100%)' }}>
-      <div className="w-full max-w-sm">
-        <div className="flex flex-col items-center mb-8">
-          <img
-            src={defaultLogo}
-            alt="logo"
-            className="w-14 h-14 rounded-2xl object-contain mb-3"
-            style={{ boxShadow: '0 4px 16px rgba(37,99,235,0.25)' }}
-          />
-          <h1 className="text-xl font-bold text-gray-900">Bienvenido</h1>
-          <p className="text-sm text-gray-500 mt-1">Sistema de Cotizaciones</p>
-        </div>
+    <div className="login-page">
+      <div className="login-wrap">
+        <img src={defaultLogo} alt="Sistema de Cotizaciones" className="login-logo" />
+        <h1 className="login-title">Bienvenido</h1>
+        <p className="login-sub">Sistema de Cotizaciones</p>
 
-        <div className="card p-6">
-          <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="login-card">
+          <form onSubmit={handleSubmit} className="space-y-[18px]">
             <div>
-              <label className="label">Correo electrónico</label>
+              <label className="login-label" htmlFor="login-email">Correo electrónico</label>
               <input
-                className="input"
+                id="login-email"
+                className="login-input"
                 type="email"
                 placeholder="correo@empresa.com"
                 value={email}
@@ -55,10 +48,11 @@ export default function Login() {
             </div>
 
             <div>
-              <label className="label">Contraseña</label>
+              <label className="login-label" htmlFor="login-password">Contraseña</label>
               <div className="relative">
                 <input
-                  className="input pr-10"
+                  id="login-password"
+                  className="login-input pr-11"
                   type={showPass ? 'text' : 'password'}
                   placeholder="Tu contraseña"
                   value={password}
@@ -66,20 +60,19 @@ export default function Login() {
                   autoComplete="current-password"
                 />
                 <button type="button" onClick={() => setShowPass(v => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
-                  {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
+                  className="login-eye" aria-label={showPass ? 'Ocultar contraseña' : 'Mostrar contraseña'}>
+                  {showPass ? <EyeOff size={17} /> : <Eye size={17} />}
                 </button>
               </div>
-              {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
+              {error && <p className="text-[13px] text-red-500 mt-2">{error}</p>}
             </div>
 
-            <button type="submit" disabled={loading} className="btn-primary w-full justify-center">
+            <button type="submit" disabled={loading} className="login-btn">
               {loading ? 'Ingresando...' : 'Ingresar'}
             </button>
 
-            <div className="text-center">
-              <Link to="/forgot-password"
-                className="text-xs text-blue-600 hover:text-blue-800 hover:underline">
+            <div className="text-center pt-1">
+              <Link to="/forgot-password" className="login-link">
                 ¿Olvidaste tu contraseña?
               </Link>
             </div>
