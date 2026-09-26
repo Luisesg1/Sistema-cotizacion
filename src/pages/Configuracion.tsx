@@ -194,8 +194,8 @@ export default function Configuracion() {
             </div>
             <div>
               <label className="label">Subtítulo en la barra lateral</label>
-              <input className="input" placeholder="Sistema SITI" value={form.subtitulo_sistema || ''} onChange={e => set('subtitulo_sistema', e.target.value)} />
-              <p className="text-[11px] text-gray-400 mt-1.5">Texto secundario bajo el nombre. Por defecto: "Sistema SITI"</p>
+              <input className="input" placeholder="Ej: tu empresa" value={form.subtitulo_sistema || ''} onChange={e => set('subtitulo_sistema', e.target.value)} />
+              <p className="text-[11px] text-gray-400 mt-1.5">Texto secundario bajo el nombre. Opcional: si lo dejás vacío, no se muestra.</p>
             </div>
           </div>
         </div>

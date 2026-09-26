@@ -35,7 +35,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           />
           <div>
             <p className="font-bold text-gray-900 text-sm leading-tight">{empresa?.nombre_sistema || 'Cotizaciones'}</p>
-            <p className="text-[10px] text-gray-400">{empresa?.subtitulo_sistema || 'Sistema SITI'}</p>
+            {empresa?.subtitulo_sistema && <p className="text-[10px] text-gray-400">{empresa.subtitulo_sistema}</p>}
           </div>
         </div>
         <button onClick={close} className="lg:hidden text-gray-400 hover:text-gray-600 transition-colors">
