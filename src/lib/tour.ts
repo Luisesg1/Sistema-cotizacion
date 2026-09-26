@@ -2,10 +2,9 @@ import { driver } from 'driver.js'
 import 'driver.js/dist/driver.css'
 
 const TOUR_KEY = 'cot_tour_visto'
-type NavFn = (path: string) => void
 
-/** Espera a que un elemento exista en el DOM (tras navegar de pantalla). */
-function waitFor(selector: string, timeout = 5000): Promise<void> {
+/** Espera a que un elemento exista en el DOM (tras cambiar de pantalla). */
+function waitFor(selector: string, timeout = 6000): Promise<void> {
   return new Promise(resolve => {
     const start = Date.now()
     const tick = () => {
@@ -16,22 +15,25 @@ function waitFor(selector: string, timeout = 5000): Promise<void> {
   })
 }
 
+/** Cambia de pantalla haciendo clic en el propio enlace del menú (robusto, sin depender de React Router). */
+function irA(rutaTour: string) {
+  const link = document.querySelector<HTMLElement>(`[data-tour="${rutaTour}"]`)
+  link?.click()
+}
+
 /**
- * Tutorial guiado. Primero da un recorrido por el menú y luego ENTRA a
- * "Nueva Cotización" para explicar qué hace cada campo y qué aparece en el PDF.
- * Necesita `navigate` (de react-router) para cambiar de pantalla en el camino.
+ * Tutorial guiado. Recorre el menú y ENTRA a "Nueva Cotización" para explicar
+ * cada campo del formulario y qué aparece en el PDF. Navega haciendo clic en el
+ * menú, así funciona siempre (no depende de estados que el recargado en caliente
+ * pueda dejar desactualizados).
  */
-export function startTour(navigate?: NavFn) {
+export function startTour() {
   let d: ReturnType<typeof driver>
 
-  // Paso puente: entra al formulario de cotización y sigue el tour ahí.
-  const goToForm = () => {
-    if (navigate) {
-      navigate('/cotizaciones/nueva')
-      waitFor('[data-tour="cot-numero"]').then(() => d.moveNext())
-    } else {
-      d.moveNext()
-    }
+  // Entra al formulario de cotización y continúa el tour ahí.
+  const entrarAlFormulario = () => {
+    irA('/cotizaciones/nueva')
+    waitFor('[data-tour="cot-numero"]').then(() => d.moveNext())
   }
 
   d = driver({
@@ -43,17 +45,15 @@ export function startTour(navigate?: NavFn) {
     doneBtnText: 'Entendido',
     progressText: '{{current}} de {{total}}',
     onDestroyed: () => {
-      // Si el tour terminó (o se cerró) dentro del formulario, volvemos al inicio.
-      if (navigate && window.location.pathname.startsWith('/cotizaciones/nueva')) {
-        navigate('/')
-      }
+      // Al terminar (o cerrar) dentro del formulario, volvemos al inicio.
+      if (window.location.pathname.startsWith('/cotizaciones/nueva')) irA('/')
     },
     steps: [
       {
         element: '[data-tour="brand"]',
         popover: {
           title: '👋 ¡Bienvenido!',
-          description: 'Te mostramos para qué sirve cada parte del sistema y, al final, entramos a crear una cotización explicando campo por campo. Puedes cerrar cuando quieras.',
+          description: 'Te mostramos para qué sirve cada parte del sistema y entramos a crear una cotización explicando campo por campo. Puedes cerrar cuando quieras.',
         },
       },
       {
@@ -67,42 +67,8 @@ export function startTour(navigate?: NavFn) {
         element: '[data-tour="/cotizaciones/nueva"]',
         popover: {
           title: 'Nueva Cotización',
-          description: 'Donde se arma cada cotización. En un momento entramos a verla por dentro, campo por campo.',
-        },
-      },
-      {
-        element: '[data-tour="/historial"]',
-        popover: {
-          title: 'Historial',
-          description: 'Todas tus cotizaciones guardadas. Puedes verlas, editarlas, duplicarlas o descargar su PDF.',
-        },
-      },
-      {
-        element: '[data-tour="/clientes"]',
-        popover: {
-          title: 'Clientes',
-          description: 'Tu lista de clientes. Guardas sus datos una sola vez y los reutilizas en cada cotización.',
-        },
-      },
-      {
-        element: '[data-tour="/configuracion"]',
-        popover: {
-          title: 'Configuración: empieza aquí',
-          description: 'Tus datos, tu logo, tu firma y los datos bancarios. Todo esto aparece automáticamente en el PDF.',
-        },
-      },
-      {
-        element: '[data-tour="/ayuda"]',
-        popover: {
-          title: 'Ayuda',
-          description: 'El manual completo con el detalle de cada campo, y el acceso para repetir este tutorial cuando quieras.',
-        },
-      },
-      {
-        popover: {
-          title: 'Veamos una cotización por dentro',
-          description: 'Ahora entramos a “Nueva Cotización” para ver qué hace cada campo y qué información llega al PDF del cliente.',
-          onNextClick: goToForm,
+          description: 'Aquí se arma cada cotización. Al tocar “Siguiente” entramos al formulario para ver qué hace cada campo.',
+          onNextClick: entrarAlFormulario,
         },
       },
       {
@@ -148,6 +114,34 @@ export function startTour(navigate?: NavFn) {
         },
       },
       {
+        element: '[data-tour="/historial"]',
+        popover: {
+          title: 'Historial',
+          description: 'Todas tus cotizaciones guardadas. Puedes verlas, editarlas, duplicarlas o descargar su PDF.',
+        },
+      },
+      {
+        element: '[data-tour="/clientes"]',
+        popover: {
+          title: 'Clientes',
+          description: 'Tu lista de clientes. Guardas sus datos una sola vez y los reutilizas en cada cotización.',
+        },
+      },
+      {
+        element: '[data-tour="/configuracion"]',
+        popover: {
+          title: 'Configuración: empieza aquí',
+          description: 'Tus datos, tu logo, tu firma y los datos bancarios. Todo esto aparece automáticamente en el PDF.',
+        },
+      },
+      {
+        element: '[data-tour="/ayuda"]',
+        popover: {
+          title: 'Ayuda',
+          description: 'El manual completo con el detalle de cada campo, y el acceso para repetir este tutorial cuando quieras.',
+        },
+      },
+      {
         popover: {
           title: '¡Listo! 🎉',
           description: 'Eso es todo. Un buen primer paso: entra a Configuración y carga los datos de tu empresa. ¡Éxitos!',
@@ -159,10 +153,10 @@ export function startTour(navigate?: NavFn) {
 }
 
 /** Inicia el tutorial solo la primera vez que el usuario entra. */
-export function startTourOnce(navigate?: NavFn) {
+export function startTourOnce() {
   let visto = false
   try { visto = localStorage.getItem(TOUR_KEY) === '1' } catch { /* sin storage */ }
   if (visto) return
   try { localStorage.setItem(TOUR_KEY, '1') } catch { /* sin storage */ }
-  setTimeout(() => startTour(navigate), 700)
+  setTimeout(() => startTour(), 700)
 }
