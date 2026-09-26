@@ -19,6 +19,9 @@ function seen(key: Screen): boolean {
 function markSeen(key: Screen) {
   try { localStorage.setItem(KEY_PREFIX + key, '1') } catch { /* sin storage */ }
 }
+function markAllSeen() {
+  SCREENS.forEach(markSeen)
+}
 
 /** Espera a que un elemento exista en el DOM (tras entrar a una pantalla). */
 function waitFor(selector: string, timeout = 4000): Promise<boolean> {
@@ -39,7 +42,7 @@ function irA(rutaTour: string) {
 }
 
 function makeDriver(steps: DriveStep[]) {
-  return driver({
+  const d = driver({
     showProgress: false,
     allowClose: true,
     overlayColor: 'rgba(15, 23, 42, 0.55)',
@@ -47,8 +50,19 @@ function makeDriver(steps: DriveStep[]) {
     prevBtnText: 'Atrás',
     doneBtnText: 'Entendido',
     onDestroyed: () => { tourActive = false },
+    // Botón "Omitir tutorial": cierra el tutorial y marca todos como vistos.
+    onPopoverRender: (popover) => {
+      const btn = document.createElement('button')
+      btn.type = 'button'
+      btn.textContent = 'Omitir tutorial'
+      btn.style.cssText =
+        'background:none;border:none;color:#94a3b8;font-size:12px;cursor:pointer;padding:0;margin-right:auto;text-decoration:underline;'
+      btn.addEventListener('click', () => { markAllSeen(); d.destroy() })
+      popover.footer.insertBefore(btn, popover.footer.firstChild)
+    },
     steps,
   })
+  return d
 }
 
 // ── Definición de cada tutorial (anclaje a esperar + pasos) ──
