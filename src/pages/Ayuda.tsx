@@ -3,6 +3,7 @@ import {
   LogIn, LayoutDashboard, Settings, Users, Receipt, FileDown, FileText,
   HelpCircle, Check, AlertTriangle, PlayCircle,
 } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { startTour } from '../lib/tour'
 
 /* ── Helpers de presentación ── */
@@ -119,6 +120,7 @@ const B = ({ children }: { children: ReactNode }) => <b className="font-semibold
 /* ── Página ── */
 
 export default function Ayuda() {
+  const navigate = useNavigate()
   return (
     <div className="p-4 sm:p-8 max-w-3xl mx-auto">
       {/* Encabezado */}
@@ -132,7 +134,7 @@ export default function Ayuda() {
           Aquí se explica para qué sirve cada sección y qué hace cada campo, incluyendo
           qué información aparece en el PDF que se envía al cliente.
         </p>
-        <button onClick={startTour} className="btn-primary mt-4">
+        <button onClick={() => startTour(navigate)} className="btn-primary mt-4">
           <PlayCircle size={16} /> Ver tutorial guiado
         </button>
         <p className="text-[12px] text-gray-400 mt-2">

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { LayoutDashboard, Users, FileText, Settings, Menu, X, Receipt, LogOut, HelpCircle } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
 import { useEmpresa } from '../contexts/EmpresaContext'
@@ -17,6 +17,7 @@ const navItems = [
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation()
+  const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const { session, signOut } = useAuth()
   const { empresa } = useEmpresa()
@@ -24,7 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const close = () => setOpen(false)
 
   // Tutorial guiado: se abre solo la primera vez que el usuario entra.
-  useEffect(() => { startTourOnce() }, [])
+  useEffect(() => { startTourOnce(navigate) }, [navigate])
 
   const SidebarContent = () => (
     <div className="flex flex-col h-full">

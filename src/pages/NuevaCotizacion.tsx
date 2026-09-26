@@ -296,7 +296,7 @@ export default function NuevaCotizacion() {
             </div>
 
             {/* Col derecha: Tarjeta azul — ocupa toda la columna */}
-            <div className="rounded-2xl text-center flex flex-col items-center justify-center py-5 px-6"
+            <div data-tour="cot-numero" className="rounded-2xl text-center flex flex-col items-center justify-center py-5 px-6"
               style={{ background: 'linear-gradient(135deg, #2563EB 0%, #1845C0 100%)', boxShadow: '0 4px 20px rgba(37,99,235,0.25)' }}>
               <p className="text-[9px] font-semibold text-blue-300 uppercase tracking-[0.15em] mb-1">Cotización N°</p>
               <input
@@ -325,7 +325,7 @@ export default function NuevaCotizacion() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-7 mb-8">
 
             {/* Cliente */}
-            <div>
+            <div data-tour="cot-cliente">
               <SectionTitle>Cliente</SectionTitle>
               <div className="relative" ref={ddRef}>
                 <label className="label">Razón Social <span className="text-red-400">*</span></label>
@@ -412,7 +412,7 @@ export default function NuevaCotizacion() {
             </div>
 
             {/* Condiciones */}
-            <div>
+            <div data-tour="cot-condiciones">
               <SectionTitle>Condiciones</SectionTitle>
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
@@ -438,7 +438,7 @@ export default function NuevaCotizacion() {
           </div>
 
           {/* TABLA PRODUCTOS */}
-          <div className="mb-8">
+          <div className="mb-8" data-tour="cot-productos">
             <SectionTitle>Detalle de productos / servicios</SectionTitle>
             <div style={{ border: '1.5px solid #ECECEC', borderRadius: 14, overflow: 'hidden' }}>
               <div className="overflow-x-auto">
@@ -556,7 +556,7 @@ export default function NuevaCotizacion() {
               />
             </div>
 
-            <div className="w-full sm:w-72 flex-shrink-0">
+            <div className="w-full sm:w-72 flex-shrink-0" data-tour="cot-totales">
               <div className="rounded-xl overflow-hidden" style={{ border: '1.5px solid #ECECEC' }}>
                 <div className="flex justify-between items-center px-5 py-3.5" style={{ borderBottom: '1px solid #F1F5F9' }}>
                   <span className="text-[13px] text-gray-500">Subtotal neto</span>
@@ -586,7 +586,7 @@ export default function NuevaCotizacion() {
       </div>
 
       {/* ── BOTTOM SAVE BAR ── */}
-      <div className="mt-6 flex justify-end gap-3">
+      <div className="mt-6 flex justify-end gap-3" data-tour="cot-acciones">
         <button onClick={handlePDF} disabled={generatingPDF} className="btn-secondary px-6">
           <FileDown size={15} />
           {generatingPDF ? 'Generando...' : 'Descargar PDF'}
