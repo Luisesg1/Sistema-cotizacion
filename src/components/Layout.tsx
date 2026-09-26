@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import { LayoutDashboard, Users, FileText, Settings, Menu, X, Receipt, LogOut } from 'lucide-react'
+import { LayoutDashboard, Users, FileText, Settings, Menu, X, Receipt, LogOut, HelpCircle } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
 import { useEmpresa } from '../contexts/EmpresaContext'
 import defaultLogo from '../assets/logo.webp'
@@ -11,6 +11,7 @@ const navItems = [
   { to: '/historial', label: 'Historial', icon: FileText },
   { to: '/clientes', label: 'Clientes', icon: Users },
   { to: '/configuracion', label: 'Configuración', icon: Settings },
+  { to: '/ayuda', label: 'Ayuda', icon: HelpCircle },
 ]
 
 export default function Layout({ children }: { children: React.ReactNode }) {

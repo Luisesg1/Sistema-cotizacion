@@ -9,6 +9,7 @@ import Clientes from './pages/Clientes'
 import Configuracion from './pages/Configuracion'
 import NuevaCotizacion from './pages/NuevaCotizacion'
 import Historial from './pages/Historial'
+import Ayuda from './pages/Ayuda'
 import Login from './pages/Login'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
@@ -72,6 +73,7 @@ function AppRoutes() {
         <Route path="/historial" element={<Historial />} />
         <Route path="/clientes" element={<Clientes />} />
         <Route path="/configuracion" element={<Configuracion />} />
+        <Route path="/ayuda" element={<Ayuda />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Layout>
