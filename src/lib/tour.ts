@@ -36,6 +36,12 @@ export function startTour() {
     waitFor('[data-tour="cot-numero"]').then(() => d.moveNext())
   }
 
+  // Entra a Configuración y continúa el tour ahí.
+  const entrarAConfig = () => {
+    irA('/configuracion')
+    waitFor('[data-tour="cfg-logo"]').then(() => d.moveNext())
+  }
+
   d = driver({
     showProgress: true,
     allowClose: true,
@@ -45,8 +51,9 @@ export function startTour() {
     doneBtnText: 'Entendido',
     progressText: '{{current}} de {{total}}',
     onDestroyed: () => {
-      // Al terminar (o cerrar) dentro del formulario, volvemos al inicio.
-      if (window.location.pathname.startsWith('/cotizaciones/nueva')) irA('/')
+      // Al terminar (o cerrar) dentro de una pantalla del recorrido, volvemos al inicio.
+      const p = window.location.pathname
+      if (p.startsWith('/cotizaciones/nueva') || p.startsWith('/configuracion')) irA('/')
     },
     steps: [
       {
@@ -131,7 +138,43 @@ export function startTour() {
         element: '[data-tour="/configuracion"]',
         popover: {
           title: 'Configuración: empieza aquí',
-          description: 'Tus datos, tu logo, tu firma y los datos bancarios. Todo esto aparece automáticamente en el PDF.',
+          description: 'Aquí cargas los datos de tu empresa, que aparecen en todas tus cotizaciones. Al tocar “Siguiente” entramos para ver cada campo.',
+          onNextClick: entrarAConfig,
+        },
+      },
+      {
+        element: '[data-tour="cfg-logo"]',
+        popover: {
+          title: 'Logo de la empresa',
+          description: 'Sube tu logo (PNG o JPG, fondo blanco). Se muestra en el menú y en el encabezado del PDF.',
+        },
+      },
+      {
+        element: '[data-tour="cfg-datos"]',
+        popover: {
+          title: 'Datos de la empresa',
+          description: 'Razón social, RUT, giro, ejecutivo, dirección, ciudad, región, teléfono y email. Forman el encabezado del PDF que ve el cliente.',
+        },
+      },
+      {
+        element: '[data-tour="cfg-defaults"]',
+        popover: {
+          title: 'Valores por defecto',
+          description: 'La condición de pago y la validez que se cargarán solas en cada cotización nueva. Igual puedes cambiarlas en cada una.',
+        },
+      },
+      {
+        element: '[data-tour="cfg-banco"]',
+        popover: {
+          title: 'Datos bancarios',
+          description: 'Dónde te transfiere el cliente. Aparecen al final del PDF, debajo de las observaciones.',
+        },
+      },
+      {
+        element: '[data-tour="cfg-firma"]',
+        popover: {
+          title: 'Firma digital',
+          description: 'La dibujas con el mouse o el dedo. Aparece sobre la línea de firma en el PDF. Recuerda presionar “Guardar Configuración” al terminar.',
         },
       },
       {

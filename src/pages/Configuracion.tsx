@@ -73,7 +73,7 @@ export default function Configuracion() {
 
       <div className="card p-6 space-y-6">
         {/* Logo */}
-        <div className="pb-2" style={{ minHeight: 150 }}>
+        <div className="pb-2" style={{ minHeight: 150 }} data-tour="cfg-logo">
           <label className="label mb-3">Logo de la empresa</label>
           <div className="flex flex-col sm:flex-row sm:items-center gap-5">
             {/* Preview */}
@@ -128,7 +128,7 @@ export default function Configuracion() {
         <div className="h-px bg-gray-100" />
 
         {/* Datos principales */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" data-tour="cfg-datos">
           <div className="sm:col-span-2 lg:col-span-2">
             <label className="label">Razón Social</label>
             <input className="input" value={form.razon_social} onChange={e => set('razon_social', e.target.value)} />
@@ -170,7 +170,7 @@ export default function Configuracion() {
 
         <div className="h-px bg-gray-100" />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" data-tour="cfg-defaults">
           <div>
             <label className="label">Condición de pago por defecto</label>
             <input className="input" value={form.condicion_pago} onChange={e => set('condicion_pago', e.target.value)} />
@@ -208,7 +208,7 @@ export default function Configuracion() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
             {/* Datos bancarios */}
-            <div className="flex flex-col">
+            <div className="flex flex-col" data-tour="cfg-banco">
               <label className="label mb-2">Datos bancarios</label>
               <p className="text-[11px] text-gray-400 mb-3">Aparecen en el PDF debajo de las observaciones</p>
               <textarea
@@ -238,7 +238,7 @@ export default function Configuracion() {
             </div>
 
             {/* Firma digital */}
-            <div className="flex flex-col">
+            <div className="flex flex-col" data-tour="cfg-firma">
               <label className="label mb-2">Firma digital</label>
               <p className="text-[11px] text-gray-400 mb-3">Aparece sobre la línea de firma en el PDF</p>
               <FirmaCanvas
