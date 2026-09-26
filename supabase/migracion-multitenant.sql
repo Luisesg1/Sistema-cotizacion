@@ -71,12 +71,22 @@ alter table cotizaciones
   add constraint cotizaciones_numero_user_key unique (user_id, numero);
 
 -- ------------------------------------------------------------
--- 5. Reemplazar políticas "allow all" por políticas por usuario
+-- 5. Reemplazar las políticas permisivas por políticas por usuario.
+--    OJO: en producción la política vieja se llamaba "auth only"
+--    (auth.role() = 'authenticated'), no "allow all". Si queda una
+--    política permisiva conviviendo con "own rows", Postgres las combina
+--    con OR y CUALQUIER usuario logueado ve TODO. Por eso se eliminan
+--    ambos nombres posibles.
 -- ------------------------------------------------------------
 drop policy if exists "allow all" on empresa;
 drop policy if exists "allow all" on clientes;
 drop policy if exists "allow all" on cotizaciones;
 drop policy if exists "allow all" on detalle_cotizacion;
+
+drop policy if exists "auth only" on empresa;
+drop policy if exists "auth only" on clientes;
+drop policy if exists "auth only" on cotizaciones;
+drop policy if exists "auth only" on detalle_cotizacion;
 
 create policy "own rows" on empresa            for all using (user_id = auth.uid()) with check (user_id = auth.uid());
 create policy "own rows" on clientes           for all using (user_id = auth.uid()) with check (user_id = auth.uid());
