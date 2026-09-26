@@ -16,7 +16,11 @@ const uid = () => Math.random().toString(36).slice(2) + Date.now().toString(36)
 
 export async function getEmpresa(): Promise<Empresa | null> {
   if (isSupabaseConfigured()) {
-    const { data } = await supabase.from('empresa').select('*').limit(1).single()
+    // maybeSingle(): un usuario nuevo todavía no tiene empresa; con single()
+    // eso tiraría error. Con maybeSingle() devuelve null y la app muestra
+    // Configuración vacía. RLS ya filtra por auth.uid(), así que limit(1)
+    // trae la empresa del usuario logueado.
+    const { data } = await supabase.from('empresa').select('*').limit(1).maybeSingle()
     return data
   }
   const raw = localStorage.getItem(KEYS.empresa)
