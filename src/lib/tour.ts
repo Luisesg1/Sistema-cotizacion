@@ -18,7 +18,7 @@ function buildDriver() {
         element: '[data-tour="brand"]',
         popover: {
           title: '👋 ¡Bienvenido!',
-          description: 'Te muestro en 30 segundos para qué sirve cada parte del sistema. Podés cerrar en cualquier momento y volver a verlo desde “Ayuda”.',
+          description: 'Te mostramos en 30 segundos para qué sirve cada parte del sistema. Puedes cerrar cuando quieras y volver a verlo desde “Ayuda”.',
         },
       },
       {
@@ -32,27 +32,27 @@ function buildDriver() {
         element: '[data-tour="/cotizaciones/nueva"]',
         popover: {
           title: 'Nueva Cotización',
-          description: 'Acá creás una cotización: elegís el cliente, cargás los productos con sus precios y el sistema calcula el IVA y el total solo. Después la guardás o descargás el PDF.',
+          description: 'Aquí creas una cotización: eliges el cliente, cargas los productos con sus precios y el sistema calcula el IVA y el total solo. Después la guardas o descargas el PDF. En “Ayuda” se explica qué hace cada campo.',
         },
       },
       {
         element: '[data-tour="/historial"]',
         popover: {
           title: 'Historial',
-          description: 'Todas tus cotizaciones guardadas. Podés verlas, editarlas, duplicarlas (para hacer una parecida) o descargar su PDF.',
+          description: 'Todas tus cotizaciones guardadas. Puedes verlas, editarlas, duplicarlas (para hacer una parecida) o descargar su PDF.',
         },
       },
       {
         element: '[data-tour="/clientes"]',
         popover: {
           title: 'Clientes',
-          description: 'Tu lista de clientes. Guardás sus datos una sola vez y los reutilizás en cada cotización, sin volver a escribirlos.',
+          description: 'Tu lista de clientes. Guardas sus datos una sola vez y los reutilizas en cada cotización, sin volver a escribirlos.',
         },
       },
       {
         element: '[data-tour="/configuracion"]',
         popover: {
-          title: 'Configuración — ¡empezá por acá!',
+          title: 'Configuración: ¡empieza por aquí!',
           description: 'Los datos de tu empresa, tu logo, tu firma y los datos bancarios. Todo esto aparece automáticamente en tus cotizaciones y en el PDF.',
         },
       },
@@ -60,14 +60,14 @@ function buildDriver() {
         element: '[data-tour="/ayuda"]',
         popover: {
           title: 'Ayuda',
-          description: 'El manual completo, para consultar cuando tengas una duda. Desde acá también podés volver a ver este tutorial cuando quieras.',
+          description: 'El manual completo, con el detalle de cada campo y qué aparece en el PDF. Desde aquí también puedes volver a ver este tutorial cuando quieras.',
         },
       },
       {
         element: '[data-tour="brand"]',
         popover: {
           title: '¡Listo! 🎉',
-          description: 'Eso es todo lo básico. Un buen primer paso: entrá a Configuración y cargá los datos de tu empresa. ¡Éxitos!',
+          description: 'Eso es todo lo básico. Un buen primer paso: entra a Configuración y carga los datos de tu empresa. ¡Éxitos!',
         },
       },
     ],
