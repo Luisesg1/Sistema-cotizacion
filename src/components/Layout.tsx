@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { LayoutDashboard, Users, FileText, Settings, Menu, X, Receipt, LogOut, HelpCircle } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
 import { useEmpresa } from '../contexts/EmpresaContext'
 import defaultLogo from '../assets/logo.webp'
+import { startTourOnce } from '../lib/tour'
 
 const navItems = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, exact: true },
@@ -22,11 +23,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const username = session?.user?.email?.split('@')[0] || 'Usuario'
   const close = () => setOpen(false)
 
+  // Tutorial guiado: se abre solo la primera vez que el usuario entra.
+  useEffect(() => { startTourOnce() }, [])
+
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
       {/* Logo */}
       <div className="px-5 py-5 flex items-center justify-between flex-shrink-0">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3" data-tour="brand">
           <img
             src={empresa?.logo || defaultLogo}
             alt="logo"
@@ -53,6 +57,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <NavLink
               key={to}
               to={to}
+              data-tour={to}
               onClick={close}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-150 ${
                 active

@@ -1,8 +1,9 @@
 import { ReactNode } from 'react'
 import {
   LogIn, LayoutDashboard, Settings, Users, Receipt, FileDown, FileText,
-  HelpCircle, Check, AlertTriangle,
+  HelpCircle, Check, AlertTriangle, PlayCircle,
 } from 'lucide-react'
+import { startTour } from '../lib/tour'
 
 /* ── Helpers de presentación ── */
 
@@ -96,6 +97,12 @@ export default function Ayuda() {
         <p className="text-sm text-gray-500 mt-1 max-w-xl">
           Todo lo que necesitás para crear cotizaciones profesionales, generar el PDF y llevar el
           registro de tus clientes. Si sabés usar el correo, sabés usar esto.
+        </p>
+        <button onClick={startTour} className="btn-primary mt-4">
+          <PlayCircle size={16} /> Ver tutorial guiado
+        </button>
+        <p className="text-[12px] text-gray-400 mt-2">
+          Una visita rápida que resalta cada parte de la pantalla y explica para qué sirve.
         </p>
       </div>
 
